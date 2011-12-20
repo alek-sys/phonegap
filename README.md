@@ -1,3 +1,10 @@
+This is the fork of phonegap project with fix for Windows Phone 7 framework - WebBrowser scroll and zoom disabling feature.
+To disable scroll on custom page just put:
+ window.external.notify("noScroll");
+on you page in <script>...</script> section.
+
+Be aware, that Visual Studio Project templates are NOT updated so after project creation you need build phonegap and replace existing reference with new assembly (project) from Windows Phone/framework folder.
+
 PhoneGap
 ========
 
