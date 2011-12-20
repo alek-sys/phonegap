@@ -53,7 +53,7 @@ namespace WP7GapClassLib
         private bool OverrideBackButton = false;
 
         private static string AppRoot = "app\\";
-
+        private WebBrowserHelper webBrowserHelper = null;
 
         /// <summary>
         /// Handles native api calls
@@ -110,7 +110,7 @@ namespace WP7GapClassLib
         {
             
             InitializeComponent();
-
+            webBrowserHelper = new WebBrowserHelper(GapBrowser);
             if (DesignerProperties.IsInDesignTool)
             {
                 return;
@@ -327,6 +327,7 @@ namespace WP7GapClassLib
         void GapBrowser_Navigating(object sender, NavigatingEventArgs e)
         {
             Debug.WriteLine("GapBrowser_Navigating to :: " + e.Uri.ToString());
+            webBrowserHelper.ScrollDisabled = false;
             if (e.Uri.ToString().IndexOf("#") > -1)
             {
                 e.Cancel = true;
@@ -359,6 +360,10 @@ namespace WP7GapClassLib
             {
                 this.orientationHelper.HandleCommand(commandStr);
                 return;
+            }
+            else if (commandStr == "noScroll")
+            {
+                webBrowserHelper.ScrollDisabled = true;
             }
 
             PhoneGapCommandCall commandCallParams = PhoneGapCommandCall.Parse(commandStr);
